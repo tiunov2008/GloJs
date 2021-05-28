@@ -5,6 +5,10 @@ var deposit = true;
 var mission = 100000;
 var period = 6;
 var budgetDay = 30;
+var num = 266219;
+num = String(num).split("").reduce((last, next) => last * next)**3;
+console.log(String(num).substr(0,2));
+
 alert("Some text");
 console.log("Some text");
 console.log("Type of money: " + typeof(money));
