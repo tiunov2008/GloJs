@@ -1,11 +1,13 @@
 'use strict'
 let betterString = function(str){
-    if(typeof(str) != "string"){ 
+    if(/[0-9]/.test(str)){ 
         alert("Это не строка!");
     }else{
         str = str.trim()
         if(str.length > 30) {
             console.log(str.substr(0, 30) + '...');
+        }else{
+            console.log(str);
         }
     }
 }
