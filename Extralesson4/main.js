@@ -11,5 +11,5 @@ for(let i = 0; i < 100; i++){
     for (let j = 2; j < i; j++) {
         if (i % j == 0) continue label;
     }
-    console.log(i);
+    console.log(i + '   Делители этого числа: 1 и ' + i);
 }
