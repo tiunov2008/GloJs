@@ -12,14 +12,14 @@ let money, //Месячный доход
     deposit = confirm('Есть ли у вас депозит в банке?'),//Есть ли депозит в банке
     mission = 100000;//Цель заработать
 
-let reQuestion = function(str,varible){
+let reQuestion = function(){
     do{
-        varible = prompt(str);
+        money = prompt('Ваш месячный доход?');
     }
-    while(!isNumber(varible));
+    while(!isNumber(money));
 }
 
-reQuestion('Ваш месячный доход?',money);
+reQuestion();
 
 //Функция определения типа данных
 let showTypeOf = function(data){
@@ -27,14 +27,22 @@ let showTypeOf = function(data){
 }
 //Функция подсчета расходов за месяц
 let getExpensesMonth = function(){
-    let sum = 0;
+    let sum = [];
     let expenses = [];
     for(let i = 0; i < 2; i++){
         expenses[i] = prompt('Введите обязательную статью расходов?')
-        reQuestion('Во сколько это обойдется?',sum);
+        do{
+            sum[i] = prompt('Во сколько это обойдется?');
+        }
+        while(!isNumber(sum[i]));
     }
+    return +sum[1] + +sum[0];
 }
 let expensesMonth = getExpensesMonth();
+if(expensesMonth >= 0){
+}else{
+    expensesMonth = 'Что то пошло не так';
+}
 //Функция подсчета накопления за месяц
 let getAccumulatedMonth = function(){
     return money - expensesMonth;
@@ -42,7 +50,7 @@ let getAccumulatedMonth = function(){
 let accumulatedMonth = getAccumulatedMonth();
 //Функция подсчета времяни для достижения цели
 let getTargetMonth = function(){
-    if(Math.ceil(mission / accumulatedMonth) > 0){
+    if(Math.ceil(mission / accumulatedMonth) >= 0 && Math.ceil(mission / accumulatedMonth) != Infinity){
         return 'Осталось ' + Math.ceil(mission / accumulatedMonth) + ' месяца до достижения цели';
     }else{
         return "Цель не будет достигнута";
@@ -50,7 +58,11 @@ let getTargetMonth = function(){
 }
 //Переменная бюджета на день
 let budgetDay = Math.ceil(accumulatedMonth / 30);
-
+if(Math.ceil(accumulatedMonth / 30) >= 0){
+    
+}else{
+    budgetDay = 'Что то пошло не так';
+}
 let getStatusIncome = function(){
     if (budgetDay>=1200) {
         console.log('У вас высокий уровень дохода');
@@ -64,7 +76,7 @@ let getStatusIncome = function(){
 }
 
 //Определяем тип данных и выводим его
-showTypeOf(money);
+showTypeOf(parseFloat(money));
 showTypeOf(income);
 showTypeOf(deposit);
 
