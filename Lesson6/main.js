@@ -1,9 +1,9 @@
 'use strict'
 
-let answer = Math.floor(Math.random() * 100) + 1;
-console.log(answer);
 
 let start = function(){
+    let answer = Math.floor(Math.random() * 100) + 1;
+    console.log(answer);
     let number = prompt('Угадай число от 1 до 100');
     let attempts = 10;
 
