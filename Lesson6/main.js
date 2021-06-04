@@ -10,14 +10,16 @@ let start = function(){
     let checkAnswer = function(){
         if(number === null){
             alert('Игра окончена');
-            return
+            number = 'underfined';
+            return;
         }else if(attempts === 0){
             let message2 = confirm('Попытки закончились, хотите сыграть еще?');
             if(message2 === true){
                 start();
             }else{
                 alert('Игра окончена');
-                return
+                number = 'underfined';
+                return;
             }
         }else if(!isNaN(parseFloat(number)) && isFinite(number)){
             if(answer == number){
@@ -26,7 +28,8 @@ let start = function(){
                     start();
                 }else{
                     alert('Игра окончена');
-                    return
+                    number = 'underfined';
+                    return;
                 }
             }else if(answer < number){
                 number = prompt('Загаданное число меньше, осталось попыток ' + attempts);
@@ -38,6 +41,8 @@ let start = function(){
                 checkAnswer();
             }
             checkAnswer();
+        }else if(number === 'underfined'){
+
         }else{
             number = prompt('Введи число!'); 
             checkAnswer();
