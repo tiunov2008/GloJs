@@ -25,7 +25,6 @@ let appData = {
     budgetDay: 0,
     budgetMonth: 0,
     expensesMonth: 0,
-    accumulatedMonth: 0,
     asking: function(){
         appData.addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую','Квартплата, проездной, кредит');//Возможные расходы
         appData.addExpenses.toLowerCase().split(',');
@@ -52,9 +51,8 @@ let appData = {
         }
     },    
     getExpensesMonth: function(){
-        let i;
         for(let key in appData.expenses){
-            appData.expensesMonth += appData.expenses[i];
+            appData.expensesMonth += appData.expenses[key];
         }
         
         if(!(appData.expensesMonth >= 0)){
@@ -82,6 +80,7 @@ let appData = {
 }
 appData.asking();
 appData.getBudget();
+appData.getExpensesMonth();
 
 console.log('Расходы за месяц: ' + appData.expensesMonth);
 
