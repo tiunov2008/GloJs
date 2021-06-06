@@ -6,18 +6,19 @@ let start = function(){
     console.log(answer);
     let number = prompt('Угадай число от 1 до 100');
     let attempts = 10;
+    attempts--;
 
     let checkAnswer = function(){
         if(number === null){
             alert('Игра окончена');
-            return
+            return;
         }else if(attempts === 0){
             let message2 = confirm('Попытки закончились, хотите сыграть еще?');
             if(message2 === true){
                 start();
             }else{
                 alert('Игра окончена');
-                return
+                return;
             }
         }else if(!isNaN(parseFloat(number)) && isFinite(number)){
             if(answer == number){
@@ -26,7 +27,7 @@ let start = function(){
                     start();
                 }else{
                     alert('Игра окончена');
-                    return
+                    return;
                 }
             }else if(answer < number){
                 number = prompt('Загаданное число меньше, осталось попыток ' + attempts);
@@ -37,13 +38,11 @@ let start = function(){
                 attempts--;
                 checkAnswer();
             }
-            checkAnswer();
         }else{
             number = prompt('Введи число!'); 
             checkAnswer();
         }
     }
-    console.dir(checkAnswer);
     checkAnswer();
 
 }
