@@ -15,20 +15,11 @@ let isString = function(n){
         return true;
     }
 }
-let money
-let reQuestionNum = function(varible,str,substr){
-    do{
-        varible = prompt(str,substr);
-    }
-    while(!isNumber(varible));
+let money;
+do{
+    money = prompt('Ваш месячный доход?', 10000);
 }
-let reQuestionStr = function(varible,str,substr){
-    do{
-        varible = prompt(str,substr);
-    }
-    while(isString(varible));
-}
-reQuestionNum(money,'Ваш месячный доход?', 10000)
+while(!isNumber(money));
 let appData = {
     budget: money,
     income: {},
@@ -46,9 +37,15 @@ let appData = {
     asking: function(){
         if(confirm('Есть ли у вас дополнительный заработок?')){
             let itemIncome;
-            reQuestionStr(itemIncome,'Какой у вас дополнительный заработок?','Таксую')
+            do{
+                itemIncome = prompt('Какой у вас дополнительный заработок?','Таксую');
+            }
+            while(isString(itemIncome));
             let cashIncome;
-            reQuestionNum(cashIncome,'Сколько в месяц вы на этом зарабатываете?', 10000)
+            do{
+                cashIncome = prompt('Сколько в месяц вы на этом зарабатываете?',10000);
+            }
+            while(!isNumber(cashIncome));
             appData.income[itemIncome] = cashIncome;
         }
         do{
@@ -111,10 +108,14 @@ let appData = {
     },
     getInfoDeposit: function(){
         if(appData.deposit){
-            appData.percentDeposit;
-            reQuestionNum(percentDeposit,'Какой у вас годовой процент?', 10)
-            appData.moneyDeposit;
-            reQuestionNum(moneyDeposit,'Какая сумма заложена?', 10000)
+            do{
+                appData.percentDeposit = prompt('Какой у вас годовой процент?', 10);
+            }
+            while(!isNumber(appData.percentDeposit));
+            do{
+                appData.moneyDeposit = prompt('Какая сумма заложена?',10000);
+            }
+            while(!isNumber(appData.moneyDeposit));
         }
     },
     calcSavedMoney: function(){
@@ -124,15 +125,17 @@ let appData = {
 appData.asking();
 appData.getBudget();
 appData.getExpensesMonth();
-
+appData.getInfoDeposit();
 console.log('Расходы за месяц: ' + appData.expensesMonth);
 
 console.log(appData.getTargetMonth());
 for(let i = 0; i< appData.addExpenses.length; i++){
     appData.addExpenses[i] = ' ' + uCaseFirst(appData.addExpenses[i]);
 }
-console.log(appData.addExpenses.toString().trimStart())
+appData.addExpenses = appData.addExpenses.toString().trim();
+console.log(appData.addExpenses.toString().trim());
 appData.getStatusIncome();
+
 console.log("Наша программа включает в себя данные:");
 for(let key in appData){
     console.log(key + ":  " + appData[key]);
