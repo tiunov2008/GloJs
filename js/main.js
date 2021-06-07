@@ -1,5 +1,47 @@
 'use strict'
 
+let start = document.getElementById('start');
+let buttonPlus1 = document.getElementsByTagName('button')[0];
+let buttonPlus2 = document.getElementsByTagName('button')[1];
+let depositCheckmark = document.querySelector('.deposit-checkmark');
+let salary = document.querySelector('.salary-amount');
+let incomeTitle = document.querySelector('input.income-title');
+let incomeAmount = document.querySelector('.income-amount');
+let expensesTitle = document.querySelector('input.expenses-title');
+let expensesAmount = document.querySelector('.expenses-amount');
+let additionalExpensesItem = document.querySelector('.additional_expenses-item');
+let depositAmount = document.querySelector('.deposit-amount');
+let depositPercent = document.querySelector('.deposit-percent');
+let targetAmount = document.querySelector('.target-amount');
+let periodSelect = document.querySelector('.period-select');
+let additionalIncomeItem = document.querySelectorAll('.additional_income-item');
+
+console.log(periodSelect);
+console.log(targetAmount);
+console.log(depositPercent);
+console.log(depositAmount);
+console.log(expensesAmount);
+console.log(incomeAmount);
+console.log(incomeTitle);
+console.log(depositCheckmark);
+console.log(additionalExpensesItem);
+console.log(expensesTitle);
+console.log(salary);
+
+
+
+console.log(start);
+console.log(buttonPlus1);
+console.log(buttonPlus2);
+console.log(depositCheckmark);
+console.log(additionalIncomeItem);
+let rightInputs = [];
+let right = ['budget_month','budget_day','expenses_month','additional_income','additional_expenses',
+'income_period','target_month'];
+for(let i = 0;i !== right.length;i++){
+    rightInputs[i] = document.getElementsByClassName(right[i] + '-value');
+}
+console.log(rightInputs);
 let isNumber = function(n){
     return !isNaN(parseFloat(n)) && isFinite(n)
 }
