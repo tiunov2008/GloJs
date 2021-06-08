@@ -1,5 +1,47 @@
 'use strict'
 
+let start = document.getElementById('start');
+let buttonPlus1 = document.getElementsByTagName('button')[0];
+let buttonPlus2 = document.getElementsByTagName('button')[1];
+let depositCheckmark = document.querySelector('.deposit-checkmark');
+let salary = document.querySelector('.salary-amount');
+let incomeTitle = document.querySelector('input.income-title');
+let incomeAmount = document.querySelector('.income-amount');
+let expensesTitle = document.querySelector('input.expenses-title');
+let expensesAmount = document.querySelector('.expenses-amount');
+let additionalExpensesItem = document.querySelector('.additional_expenses-item');
+let depositAmount = document.querySelector('.deposit-amount');
+let depositPercent = document.querySelector('.deposit-percent');
+let targetAmount = document.querySelector('.target-amount');
+let periodSelect = document.querySelector('.period-select');
+let additionalIncomeItem = document.querySelectorAll('.additional_income-item');
+
+console.log(periodSelect);
+console.log(targetAmount);
+console.log(depositPercent);
+console.log(depositAmount);
+console.log(expensesAmount);
+console.log(incomeAmount);
+console.log(incomeTitle);
+console.log(depositCheckmark);
+console.log(additionalExpensesItem);
+console.log(expensesTitle);
+console.log(salary);
+
+
+
+console.log(start);
+console.log(buttonPlus1);
+console.log(buttonPlus2);
+console.log(depositCheckmark);
+console.log(additionalIncomeItem);
+let rightInputs = [];
+let right = ['budget_month','budget_day','expenses_month','additional_income','additional_expenses',
+'income_period','target_month'];
+for(let i = 0;i !== right.length;i++){
+    rightInputs[i] = document.getElementsByClassName(right[i] + '-value');
+}
+console.log(rightInputs);
 let isNumber = function(n){
     return !isNaN(parseFloat(n)) && isFinite(n)
 }
@@ -15,11 +57,20 @@ let isString = function(n){
         return true;
     }
 }
-let money;
-do{
-    money = prompt('Ваш месячный доход?', 10000);
+let money
+let reQuestionNum = function(varible,str,substr){
+    do{
+        varible = prompt(str,substr);
+    }
+    while(!isNumber(varible));
 }
-while(!isNumber(money));
+let reQuestionStr = function(varible,str,substr){
+    do{
+        varible = prompt(str,substr);
+    }
+    while(isString(varible));
+}
+reQuestionNum(money,'Ваш месячный доход?', 10000)
 let appData = {
     budget: money,
     income: {},
@@ -37,15 +88,9 @@ let appData = {
     asking: function(){
         if(confirm('Есть ли у вас дополнительный заработок?')){
             let itemIncome;
-            do{
-                itemIncome = prompt('Какой у вас дополнительный заработок?','Таксую');
-            }
-            while(isString(itemIncome));
+            reQuestionStr(itemIncome,'Какой у вас дополнительный заработок?','Таксую')
             let cashIncome;
-            do{
-                cashIncome = prompt('Сколько в месяц вы на этом зарабатываете?',10000);
-            }
-            while(!isNumber(cashIncome));
+            reQuestionNum(cashIncome,'Сколько в месяц вы на этом зарабатываете?', 10000)
             appData.income[itemIncome] = cashIncome;
         }
         do{
@@ -108,14 +153,10 @@ let appData = {
     },
     getInfoDeposit: function(){
         if(appData.deposit){
-            do{
-                appData.percentDeposit = prompt('Какой у вас годовой процент?', 10);
-            }
-            while(!isNumber(appData.percentDeposit));
-            do{
-                appData.moneyDeposit = prompt('Какая сумма заложена?',10000);
-            }
-            while(!isNumber(appData.moneyDeposit));
+            appData.percentDeposit;
+            reQuestionNum(percentDeposit,'Какой у вас годовой процент?', 10)
+            appData.moneyDeposit;
+            reQuestionNum(moneyDeposit,'Какая сумма заложена?', 10000)
         }
     },
     calcSavedMoney: function(){
@@ -125,17 +166,15 @@ let appData = {
 appData.asking();
 appData.getBudget();
 appData.getExpensesMonth();
-appData.getInfoDeposit();
+
 console.log('Расходы за месяц: ' + appData.expensesMonth);
 
 console.log(appData.getTargetMonth());
 for(let i = 0; i< appData.addExpenses.length; i++){
     appData.addExpenses[i] = ' ' + uCaseFirst(appData.addExpenses[i]);
 }
-appData.addExpenses = appData.addExpenses.toString().trim();
-console.log(appData.addExpenses.toString().trim());
+console.log(appData.addExpenses.toString().trimStart())
 appData.getStatusIncome();
-
 console.log("Наша программа включает в себя данные:");
 for(let key in appData){
     console.log(key + ":  " + appData[key]);
