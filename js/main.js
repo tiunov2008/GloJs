@@ -171,14 +171,11 @@ let appData = {
         return appData.budgetMonth * periodSelect.value;
     }, 
 }
-function checkButton(){
-    if(start.addEventListener('click', checkButton())){
-        start.addEventListener('click', appData.start);
-    }else{
-        checkButton();
+start.addEventListener('click', function(){
+    if(salaryAmount.value.trim() !== ''){
+        appData.start();
     }
-}
-checkButton();
+});
 expensesPlus.addEventListener('click', appData.addExpensesBlock);
 incomePlus.addEventListener('click', appData.addIncomeBlock);
 
