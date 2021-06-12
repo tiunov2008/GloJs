@@ -1,18 +1,29 @@
 'use strict'
 
-
+let elemId = 0;
 const todoControl = document.querySelector('.todo-control'),
     headerInput = document.querySelector('.header-input'),
     todoList = document.querySelector('.todo-list'),
     todoCompleted = document.querySelector('.todo-completed');
 
-const todoData = [
+var todoData = [
 ];
+
+if(localStorage.todoValue !== undefined && localStorage.todoCompleted !== undefined){
+    var todoComplete = localStorage.todoCompleted.split(', ');  
+    var todoValue = localStorage.todoValue.split(', ');
+    for (let i = 0; i < todoValue.length; i++) {
+        let newTodo = {
+            value: todoValue[i],
+            completed: !todoComplete[i],
+        };
+        todoData.push(newTodo);
+    }
+}
 
 const render = function(){
     todoList.textContent = '';
     todoCompleted.textContent = '';
-
     todoData.forEach(function(item){
         const li = document.createElement('li');
         li.classList.add('todo-item');
@@ -39,7 +50,13 @@ const render = function(){
         const btnTodoRemove = li.querySelector('.todo-remove');
 
         btnTodoRemove.addEventListener('click', function(){
-            console.log((todoData.find(item => item.value === item.value)));
+            for (let i = 0; i < todoData.length; i++) {
+                if(item.id !== todoData[i].id){
+                    todoData.splice(todoData[i]);
+                    localStorage.removeItem();
+                    break;
+                }
+            }
             render();
         })
     });
@@ -52,10 +69,17 @@ todoControl.addEventListener('submit', function(event){
     const newTodo = {
         value: headerInput.value,
         completed: false,
+        id: elemId,
     };
-
-    todoData.push(newTodo);
-
+    if(headerInput.value.trim() !== ''){
+        todoData.push(newTodo);
+        elemId++;
+    }
+    if(newTodo.value !== undefined && newTodo.completed !== undefined){
+        localStorage.todoValue += newTodo.value + ', ';
+        localStorage.todoCompleted += newTodo.completed + ', ';
+    }
+    headerInput.value = '';
     render();
 })
 
