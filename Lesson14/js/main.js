@@ -1,11 +1,11 @@
 'use strict'
 document.addEventListener("DOMContentLoaded", function () {
     const AppData = function () {
-        this.selector = '.class';
+        this.selector = '#id';
         this.height = 100;
         this.width = 100;
         this.bg = '#000fff';
-        this.fontSize = 100;
+        this.fontSize = 50;
     }
     
     AppData.prototype.createElem = function(){
