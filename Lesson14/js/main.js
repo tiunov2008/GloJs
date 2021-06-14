@@ -1,7 +1,7 @@
 'use strict'
 
 const AppData = function () {
-    this.selector = '#class';
+    this.selector = '.class';
     this.height = 100;
     this.width = 1000;
     this.bg = '#000fff';
