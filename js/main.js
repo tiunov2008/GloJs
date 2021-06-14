@@ -165,23 +165,24 @@ let appData = {
         return this.budgetMonth * periodSelect.value;
     }, 
     reset: function(){
-        targetAmount.removeAttribute('readonly', '');
-        salaryAmount.removeAttribute('readonly', '');
-        incomeTitle.removeAttribute('readonly', '');
-        incomeAmount.removeAttribute('readonly', '');
-        expensesTitle.removeAttribute('readonly', '');
+        depositCheck.checked = false;
+        targetAmount.removeAttribute('disabled', 'true');
+        salaryAmount.removeAttribute('disabled', 'true');
+        incomeTitle.removeAttribute('disabled', 'true');
+        incomeAmount.removeAttribute('disabled', 'true');
+        expensesTitle.removeAttribute('disabled', 'true');
         expensesItems.forEach(function(item){
-            item.querySelector('.expenses-title').removeAttribute('readonly', '');
-            item.querySelector('.expenses-amount').removeAttribute('readonly', '');
+            item.querySelector('.expenses-title').removeAttribute('disabled', 'true');
+            item.querySelector('.expenses-amount').removeAttribute('disabled', 'true');
         })
         incomeItems.forEach(function(item){
-            item.querySelector('.income-title').removeAttribute('readonly', '');
-            item.querySelector('.income-amount').removeAttribute('readonly', '');
+            item.querySelector('.income-title').removeAttribute('disabled', 'true');
+            item.querySelector('.income-amount').removeAttribute('disabled', 'true');
         })
-        additionalExpensesItem.removeAttribute('readonly', '');
-        salaryAmount.removeAttribute('readonly', '');
-        additionalIncomeItem[0].removeAttribute('readonly', '');
-        additionalIncomeItem[1].removeAttribute('readonly', '');
+        additionalExpensesItem.removeAttribute('disabled', 'true');
+        salaryAmount.removeAttribute('disabled', 'true');
+        additionalIncomeItem[0].removeAttribute('disabled', 'true');
+        additionalIncomeItem[1].removeAttribute('disabled', 'true');
         expensesPlus.addEventListener('click', appData.addExpensesBlock);
         incomePlus.addEventListener('click', appData.addIncomeBlock);
         start.innerHTML = 'Рассчитать';
@@ -193,7 +194,8 @@ let appData = {
             }
             i++;
         });
-        periodSelect.setAttribute('step', '1');
+        periodSelect.value = 1;
+        document.querySelector('.period-amount').innerHTML = 1;
         start.removeEventListener('click', appData.reset);
         start.addEventListener('click', startP);
     }, 
@@ -201,28 +203,29 @@ let appData = {
 let startP = function(){
     if(salaryAmount.value.trim() !== ''){
         appData.start();
-        targetAmount.setAttribute('readonly', '');
-        salaryAmount.setAttribute('readonly', '');
-        incomeTitle.setAttribute('readonly', '');
-        incomeAmount.setAttribute('readonly', '');
-        expensesTitle.setAttribute('readonly', '');
+        targetAmount.setAttribute('disabled', 'true');
+        salaryAmount.setAttribute('disabled', 'true');
+        incomeTitle.setAttribute('disabled', 'true');
+        incomeAmount.setAttribute('disabled', 'true');
+        expensesTitle.setAttribute('disabled', 'true');
         expensesItems.forEach(function(item){
-            item.querySelector('.expenses-title').setAttribute('readonly', '');
-            item.querySelector('.expenses-amount').setAttribute('readonly', '');
+            item.querySelector('.expenses-title').setAttribute('disabled', 'true');
+            item.querySelector('.expenses-amount').setAttribute('disabled', 'true');
         })
         incomeItems.forEach(function(item){
-            item.querySelector('.income-title').setAttribute('readonly', '');
-            item.querySelector('.income-amount').setAttribute('readonly', '');
+            item.querySelector('.income-title').setAttribute('disabled', 'true');
+            item.querySelector('.income-amount').setAttribute('disabled', 'true');
         })
-        additionalExpensesItem.setAttribute('readonly', '');
-        salaryAmount.setAttribute('readonly', '');
-        additionalIncomeItem[0].setAttribute('readonly', '');
-        additionalIncomeItem[1].setAttribute('readonly', '');
+        additionalExpensesItem.setAttribute('disabled', 'true');
+        salaryAmount.setAttribute('disabled', 'true');
+        additionalIncomeItem[0].setAttribute('disabled', 'true');
+        additionalIncomeItem[1].setAttribute('disabled', 'true');
         expensesPlus.removeEventListener('click', appData.addExpensesBlock);
         incomePlus.removeEventListener('click', appData.addIncomeBlock);
         start.innerHTML = 'Сбросить';
         start.removeEventListener('click', startP);
         start.addEventListener('click', appData.reset);
+
     }
 }
 start.addEventListener('click', startP);
