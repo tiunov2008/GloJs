@@ -10,8 +10,8 @@ var todoData = [
 ];
 
 let addLocalStorage = function(){
-    var todoComplete = localStorage.todoCompleted.split('_');  
-    var todoValue = localStorage.todoValue.split('_');
+    var todoComplete = localStorage.todoCompleted.split(',');  
+    var todoValue = localStorage.todoValue.split(',');
     for (let i = 0; i < todoValue.length-1; i++) {
         let newTodo = {
             value: todoValue[i],
@@ -29,8 +29,8 @@ const render = function(){
     localStorage.todoCompleted = '';
     let i = 0;
     todoData.forEach(function(item){
-        localStorage.todoValue += item.value + '_';
-        localStorage.todoCompleted += item.completed + '_';
+        localStorage.todoValue += item.value + ',';
+        localStorage.todoCompleted += item.completed + ',';
         const li = document.createElement('li');
         li.classList.add('todo-item');
 
@@ -77,7 +77,7 @@ todoControl.addEventListener('submit', function(event){
         completed: 'false',
     };
     if(headerInput.value.trim() !== ''){
-        todoData.push(newTodo);
+        todoData.unshift(newTodo);
     }
     headerInput.value = '';
     render();
