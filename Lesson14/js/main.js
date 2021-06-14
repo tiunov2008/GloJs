@@ -1,5 +1,5 @@
 'use strict'
-//document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
     const AppData = function () {
         this.selector = '.class';
         this.height = 100;
@@ -38,22 +38,18 @@
             if (event.code == 'ArrowUp') {
                 Y -= 10;
                 elem.style.top = Y + 'px';
-                console.log(Y);
             }
             if (event.code == 'ArrowDown') {
                 Y += 10;
                 elem.style.top = Y + 'px';
-                console.log(Y);
             }
             if (event.code == 'ArrowLeft') {
                 X -= 10;
                 elem.style.left = X + 'px';
-                console.log(X);
             }
             if (event.code == 'ArrowRight') {
                 X += 10;
                 elem.style.left = X + 'px';
-                console.log(X);
             }
         });
     };
@@ -62,4 +58,4 @@
     appData.createElem();
     appData.addStyles();
     appData.keydown();
-//});
+});
