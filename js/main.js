@@ -243,6 +243,7 @@ AppData.prototype.disableInputs = function(){
     cancel.addEventListener('click', this.reset);
 }; 
 AppData.prototype.eventListeners = function(){
+    console.log(this);
     start.addEventListener('click', this.start.bind(appData));
     expensesPlus.addEventListener('click', this.addExpensesBlock);
     incomePlus.addEventListener('click', this.addIncomeBlock);
@@ -251,9 +252,10 @@ AppData.prototype.eventListeners = function(){
     for(let i = 0; i< this.addExpenses.length; i++){
         this.addExpenses[i] = ' ' + uCaseFirst(this.addExpenses[i]);
     }
+    let this_ = this;
     periodSelect.oninput = function() {
         document.querySelector('.period-amount').innerHTML = periodSelect.value;
-        incomePeriodValue.value = this.calcSavedMoney();
+        incomePeriodValue.value = this_.calcSavedMoney();
     };
 }; 
 const appData = new AppData();
