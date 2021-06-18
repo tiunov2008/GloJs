@@ -65,7 +65,6 @@ window.addEventListener('DOMContentLoaded', () => {
                 const animeId = setTimeout(animate, 1);
                 if (count < 250) {
                     popup.style.top = count + 'px';
-                    popup.style.left += count + 'px';
                     count += 3;
                 } else {
                     clearTimeout(animeId);
@@ -73,7 +72,18 @@ window.addEventListener('DOMContentLoaded', () => {
             };
             animate();
         } else {
-            popup.scrollTop -= 100;
+            let count = 250;
+            const animate = () => {
+                const animeId = setTimeout(animate, 1);
+                if (count >= 0) {
+                    popup.style.top = count + 'px';
+                    count -= 3;
+                } else {
+                    clearTimeout(animeId);
+                    document.querySelector('.popup').style.display = 'none';
+                }
+            };
+            animate();
         }
     };
 
@@ -83,11 +93,16 @@ window.addEventListener('DOMContentLoaded', () => {
             popupClose = document.querySelector('.popup-close');
         popUpBtn.forEach(elem => elem.addEventListener('click', () => {
             popup.style.display = 'block';
-            animatePopUp(true);
+            if (document.body.clientWidth > 768) {
+                animatePopUp(true);
+            }
         }));
         popupClose.addEventListener('click', () => {
-            popup.style.display = 'none';
-            animatePopUp(false);
+            if (document.body.clientWidth > 768) {
+                animatePopUp(false);
+            } else {
+                popup.style.display = 'none';
+            }
         });
     };
 
