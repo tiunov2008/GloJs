@@ -50,6 +50,13 @@ window.addEventListener('DOMContentLoaded', () => {
         const handlerMenu = () => {
             menu.classList.toggle('active-menu');
         };
+        window.addEventListener('click', e => {
+            const target = e.target;
+            console.log(1);
+            if (!target.closest('menu') && !target.closest('.menu')) {
+                handlerMenu();
+            }
+        });
         btnMenu.addEventListener('click', handlerMenu);
         closeBtn.addEventListener('click', handlerMenu);
         menuItems.forEach(elem => elem.addEventListener('click', handlerMenu));
@@ -97,15 +104,12 @@ window.addEventListener('DOMContentLoaded', () => {
                 popup.style.display = 'block';
             });
 
-            document.querySelector('.popup-content').addEventListener('mouseout', (e => {
-            }));
-
             window.addEventListener('click', e => {
-                const target = e.target
+                const target = e.target;
                 if (!target.closest('.popup-content') && !target.closest('.popup-btn')) {
                     popup.style.display = 'none';
                 }
-            })
+            });
         });
         popupClose.addEventListener('click', () => {
             popup.style.display = 'none';
