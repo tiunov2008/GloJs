@@ -1,4 +1,5 @@
 window.addEventListener('DOMContentLoaded', () => {
+    //таймер
     const countTimer = function(deadLine) {
         const timerHours = document.querySelector('#timer-hours'),
             timerMinutes = document.querySelector('#timer-minutes'),
@@ -38,30 +39,51 @@ window.addEventListener('DOMContentLoaded', () => {
         updateClock();
         setInterval(updateClock, 1000);
     };
-
     countTimer('18 june 2021');
 
+    //плавная прокрутка
+    const smoothScroolTo = (e, elem) => {
+        e.preventDefault();
+
+        const href = elem.getAttribute('href').substring(1);
+        const scrollTarget = document.getElementById(href);
+
+        const elementPosition = scrollTarget.getBoundingClientRect().top;
+
+        window.scrollBy({
+            top: elementPosition,
+            behavior: 'smooth'
+        });
+    };
+
+    //меню
     const toggleMenu = () => {
         const btnMenu = document.querySelector('.menu'),
             menu = document.querySelector('menu'),
             closeBtn = document.querySelector('.close-btn'),
-            menuItems = menu.querySelectorAll('ul>li');
+            menuItems = menu.querySelectorAll('ul>li>a');
 
         const handlerMenu = () => {
             menu.classList.toggle('active-menu');
         };
         window.addEventListener('click', e => {
             const target = e.target;
-            console.log(1);
             if (!target.closest('menu') && !target.closest('.menu')) {
                 menu.classList.remove('active-menu');
             }
         });
         btnMenu.addEventListener('click', handlerMenu);
         closeBtn.addEventListener('click', handlerMenu);
-        menuItems.forEach(elem => elem.addEventListener('click', handlerMenu));
-    };
+        menuItems.forEach(elem => elem.addEventListener('click', function(e) {
+            smoothScroolTo(e, this);
+            handlerMenu();
 
+        }));
+        document.querySelector('a').addEventListener('click', function(e) {
+            smoothScroolTo(e, this);
+            handlerMenu();
+        });
+    };
     toggleMenu();
 
     /*const animatePopUp = showed => {
@@ -94,6 +116,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     };*/
 
+    //попап окно
     const togglePopUp = () => {
         const popup = document.querySelector('.popup'),
             popUpBtn = document.querySelectorAll('.popup-btn'),
@@ -115,8 +138,5 @@ window.addEventListener('DOMContentLoaded', () => {
             popup.style.display = 'none';
         });
     };
-
-
-
     togglePopUp();
 });
