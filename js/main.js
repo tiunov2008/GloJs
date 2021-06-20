@@ -54,7 +54,7 @@ window.addEventListener('DOMContentLoaded', () => {
             const target = e.target;
             console.log(1);
             if (!target.closest('menu') && !target.closest('.menu')) {
-                handlerMenu();
+                menu.classList.remove('active-menu');
             }
         });
         btnMenu.addEventListener('click', handlerMenu);
