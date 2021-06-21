@@ -62,8 +62,7 @@ class AppData{
             this.budget = salaryAmount.value;
             this.getExpInc();
             this.getExpensesMonth();
-            this.getAddExpenses();
-            this.getAddIncome();
+            this.getAddExpInc();
             this.getInfoDeposit();
             this.getBudget();
             this.getStatusIncome();
@@ -98,27 +97,7 @@ class AppData{
             incomePlus.style.display = 'none';
         }
     };
-    getExpenses(){
-        const _this = this;
-        console.log(expensesItems[0]);
-        Array.from(expensesItems[0]).forEach(function(item){
-            const itemExpenses = item.querySelector('.expenses-title').value;
-            const cashExpenses = item.querySelector('.expenses-amount').value;
-            if(itemExpenses !== '' && cashExpenses !== '')
-                _this.expenses[itemExpenses] = cashExpenses;
-        })
-    };
-    getIncome(){
-        const _this = this;
-        Array.from(incomeItems[0]).forEach(function(item){
-            const itemIncome = item.querySelector('.income-title').value;
-            const cashIncome = item.querySelector('.income-amount').value;
-            if(itemIncome !== '' && cashIncome !== '')
-                _this.income[itemIncome] = cashIncome;
-        })
-    };
     getExpInc(){
-
         const count = item => {
             const startStr = item.className.split('-')[0];
             const itemTitle = item.querySelector(`.${startStr}-title`).value;
@@ -129,9 +108,24 @@ class AppData{
         Array.from(incomeItems).forEach(count);
         Array.from(expensesItems).forEach(count)
         for(let key in this.income){
+            this.incomeMonth += +this.income[key];
         }
     };
-
+    getAddExpInc(){
+        const count = (addExpInc, item) => {
+            item = item.value.trim();
+            if(item !== ''){
+                addExpInc.push(item);
+            }
+        };
+        let addExpenses = additionalExpensesItem.value.split(',');
+        addExpenses.forEach(item => {
+            count(this.addExpenses,item)
+        });
+        additionalIncomeItem.forEach(item => {
+            count(this.addIncome,item)
+        });
+    };
     getAddExpenses(){
         const _this = this;
         let addExpenses = additionalExpensesItem.value.split(',');
