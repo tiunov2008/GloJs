@@ -61,31 +61,36 @@ window.addEventListener('DOMContentLoaded', () => {
     const toggleMenu = () => {
         const btnMenu = document.querySelector('.menu'),
             menu = document.querySelector('menu'),
-            closeBtn = document.querySelector('.close-btn'),
             menuItems = menu.querySelectorAll('ul>li>a');
 
-        const handlerMenu = () => {
-            menu.classList.toggle('active-menu');
-        };
-        window.addEventListener('click', e => {
+        document.body.addEventListener('click', e => {
             const target = e.target;
-            if (!target.closest('menu') && !target.closest('.menu')) {
-                menu.classList.remove('active-menu');
-            }
-        });
-        btnMenu.addEventListener('click', handlerMenu);
-        closeBtn.addEventListener('click', handlerMenu);
-        menuItems.forEach(elem => elem.addEventListener('click', function(e) {
-            smoothScroolTo(e, this);
-            handlerMenu();
 
-        }));
-        document.querySelector('a').addEventListener('click', function(e) {
-            smoothScroolTo(e, this);
-            handlerMenu();
+            if (target.classList.contains('close-btn')) {
+                menu.classList.remove('active-menu');
+            } else {
+                const targetMenu = target.closest('.menu');
+                if (targetMenu === btnMenu) {
+                    menu.classList.add('active-menu');
+                } else if (target !== menu) {
+                    menu.classList.remove('active-menu');
+                }
+            }
+
+            menuItems.forEach(elem => {
+                if (target === elem) {
+                    smoothScroolTo(e, elem);
+                    menu.classList.remove('active-menu');
+                }
+            });
         });
     };
     toggleMenu();
+
+    //прокрутка вниз для scroll
+    document.querySelector('a').addEventListener('click', function(e) {
+        smoothScroolTo(e, this);
+    });
 
     /*const animatePopUp = showed => {
         const popup = document.querySelector('.popup-content');
