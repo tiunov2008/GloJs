@@ -281,15 +281,22 @@ window.addEventListener('DOMContentLoaded', () => {
     };
     slider();
 
-    const calculator = () => {
-        const items = document.querySelectorAll('input.calc-item');
-        items.forEach(elem => {
-            elem.addEventListener('input', () => {
+    const calc = () => {
+        const calcBlock = document.querySelector('.calc-block'),
+            calcType = document.querySelector('.calc-type'),
+            calcSquare = document.querySelector('.calc-square'),
+            calcDay = document.querySelector('.calc-day'),
+            calcCount = document.querySelector('.calc-count'),
+            totalValue = document.getElementById('total');
+
+        calcBlock.addEventListener('change', event => {
+            const target = event.target;
+            if (target === calcType || target === calcSquare || target === calcDay || target === calcCount) {
                 elem.value = elem.value.replace(/\D/g, '');
-            });
+            }
         });
     };
-    calculator();
+    calc();
 
     const questions = () => {
         function uCaseFirst(s) {
