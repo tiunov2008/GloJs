@@ -284,6 +284,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
     const calc = (price = 100) => {
+        let count = 0,
+            lastTotal;
         const calcBlock = document.querySelector('.calc-block'),
             calcType = document.querySelector('.calc-type'),
             calcSquare = document.querySelector('.calc-square'),
@@ -309,8 +311,34 @@ window.addEventListener('DOMContentLoaded', () => {
             if (typeValue && squareValue) {
                 total = price * typeValue * squareValue * countValue * dayValue;
             }
-
-            totalValue.textContent = total;
+            let increase;
+            if (lastTotal < total) {
+                increase = true;
+            } else if (lastTotal > total) {
+                increase = false;
+            }
+            if (increase) {
+                const id = setInterval(() => {
+                    if (count <= total) {
+                        totalValue.textContent = count;
+                        count += 10;
+                    } else {
+                        totalValue.textContent = total;
+                        clearInterval(id);
+                    }
+                }, 1);
+            } else {
+                const id2 = setInterval(() => {
+                    if (count >= total) {
+                        totalValue.textContent = count;
+                        count -= 10;
+                    } else {
+                        totalValue.textContent = total;
+                        clearInterval(id2);
+                    }
+                }, 1);
+            }
+            lastTotal = total;
         };
         calcBlock.addEventListener('change', event => {
             const target = event.target;
