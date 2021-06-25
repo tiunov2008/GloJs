@@ -309,7 +309,7 @@ window.addEventListener('DOMContentLoaded', () => {
             }
 
             if (typeValue && squareValue) {
-                total = price * typeValue * squareValue * countValue * dayValue;
+                total = Math.ceil(price * typeValue * squareValue * countValue * dayValue);
             }
             let increase;
             if (lastTotal < total) {
@@ -321,9 +321,10 @@ window.addEventListener('DOMContentLoaded', () => {
                 const id = setInterval(() => {
                     if (count <= total) {
                         totalValue.textContent = count;
-                        count += 10;
+                        count += 25;
                     } else {
                         totalValue.textContent = total;
+                        count = total;
                         clearInterval(id);
                     }
                 }, 1);
@@ -331,14 +332,24 @@ window.addEventListener('DOMContentLoaded', () => {
                 const id2 = setInterval(() => {
                     if (count >= total) {
                         totalValue.textContent = count;
-                        count -= 10;
+                        count -= 25;
                     } else {
                         totalValue.textContent = total;
+                        count = total;
                         clearInterval(id2);
                     }
                 }, 1);
             }
             lastTotal = total;
+            if (calcType.options[calcType.selectedIndex].value === '' && calcSquare.value === '' &&
+            calcDay.value === '' && calcCount.value === '') {
+                total = 0,
+                countValue = 1,
+                dayValue = 1,
+                count = 0,
+                lastTotal = 0;
+            }
+
         };
         calcBlock.addEventListener('change', event => {
             const target = event.target;
@@ -346,6 +357,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 countSum();
             }
         });
+
     };
     calc(100);
 
