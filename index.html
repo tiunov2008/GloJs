@@ -411,5 +411,32 @@
 	</div>
 </div>
 <script src="js/main.js"></script>
+<script src="plugins/validators/validator.js"></script>
+<script>
+	const valid = new Validator({
+		selector: '#form2',
+		pattern: {
+			name: /[^а-яё -]/ig,
+		},
+		method: {
+			'form2-name': [
+				['notEmpty'],
+				['pattern', 'name'],
+			],
+			'form2-message': [
+				['notEmpty'],
+				['pattern', 'name'],
+			],
+			'form2-email': [
+				['notEmpty'],
+			],
+			'form2-phone': [
+				['notEmpty'],
+			],
+		},
+	});
+
+	valid.init();
+</script>
 </body>
 </html>
