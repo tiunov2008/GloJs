@@ -82,7 +82,7 @@ class Validator {
         input.error {
             border: 2px solid red !important;
         }
-        validator-error {
+        .validator-error {
             font-size: 14px !important;
             color: red !important;
             font-family: sans-serif !important;

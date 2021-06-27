@@ -413,7 +413,24 @@
 <script src="js/main.js"></script>
 <script src="plugins/validators/validator.js"></script>
 <script>
-	const valid = new Validator({
+	const valid1 = new Validator({
+		selector: '#form1',
+		pattern: {
+			name: /[^а-яё -]/ig,
+		},
+		method: {
+			'form1-name': [
+				['notEmpty'],
+			],
+			'form1-email': [
+				['notEmpty'],
+			],
+			'form1-phone': [
+				['notEmpty'],
+			],
+		},
+	});
+	const valid2 = new Validator({
 		selector: '#form2',
 		pattern: {
 			name: /[^а-яё -]/ig,
@@ -435,8 +452,26 @@
 			],
 		},
 	});
-
-	valid.init();
+	const valid3 = new Validator({
+		selector: '#form3',
+		pattern: {
+			name: /[^а-яё -]/ig,
+		},
+		method: {
+			'form3-name': [
+				['notEmpty'],
+			],
+			'form3-email': [
+				['notEmpty'],
+			],
+			'form3-phone': [
+				['notEmpty'],
+			],
+		},
+	});
+	valid1.init();
+	valid2.init();
+	valid3.init();
 </script>
 </body>
 </html>
