@@ -15,7 +15,9 @@ class Validator {
             this.elementsForm.forEach(elem => this.checkIt({ target: elem  }));
             if (this.error.size) {
                 e.preventDefault();
+                return;
             }
+            this.elementsForm.forEach(elem => elem.classList.remove('success'));
         });
     }
     isValid(elem) {

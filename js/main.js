@@ -62,7 +62,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const toggleMenu = () => {
         const btnMenu = document.querySelector('.menu'),
             menu = document.querySelector('menu'),
-            menuItems = menu.querySelectorAll('ul>li>a');
+            menuItems = menu.querySelectorAll('ul>li');
 
         document.body.addEventListener('click', e => {
             const target = e.target;
@@ -494,14 +494,15 @@ window.addEventListener('DOMContentLoaded', () => {
                 for (const val of formData.entries()) {
                     body[val[0]] = val[1];
                 }
-                postData(body, elem)
-                    .then((response) => {
+                postData(body)
+                    .then(response => {
                         if (response.status !== 200) throw new Error(`Status network not 200`);
                         statusMessage.textContent = successMessage;
                         setTimeout(() => {
                             statusMessage.remove();
                             document.querySelector('.popup').style.display = 'none';
                         }, 3000);
+                        elem.reset();
                     })
                     .catch(error => {
                         statusMessage.textContent = errorMessage;
@@ -510,22 +511,20 @@ window.addEventListener('DOMContentLoaded', () => {
                             statusMessage.remove();
                             document.querySelector('.popup').style.display = 'none';
                         }, 3000);
+                        elem.reset();
                     });
             });
 
         });
 
     };
-    const postData = body => {
-        return fetch('./server.php', {
-            method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(body)
-        })
-
-    }
+    const postData = body => fetch('./server.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+    });
     sendForm();
 });
 
@@ -557,7 +556,7 @@ const valid2 = new Validator({
         name: /[A-Za-zА-Яа-яЁё]{2,}/,
         message: /[а-яё -]/ig,
         email: /^\w+@+\w+\.\w{2,}$/,
-        phone: /^((8|\+7)[\\- ]?)?(\(?\d{3}\)?[\\- ]?)?[\d\- ]{7,10}$/,
+        phone: /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/,
     },
     method: {
         'form2-name': [
