@@ -62,7 +62,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const toggleMenu = () => {
         const btnMenu = document.querySelector('.menu'),
             menu = document.querySelector('menu'),
-            menuItems = menu.querySelectorAll('ul>li');
+            menuItems = menu.querySelectorAll('ul>li>a');
 
         document.body.addEventListener('click', e => {
             const target = e.target;
@@ -73,7 +73,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 const targetMenu = target.closest('.menu');
                 if (targetMenu === btnMenu) {
                     menu.classList.add('active-menu');
-                } else if (target !== menu) {
+                } else if (target !== menu && target.tagName.toLowerCase() !== 'li') {
                     menu.classList.remove('active-menu');
                 }
             }
