@@ -93,36 +93,6 @@ window.addEventListener('DOMContentLoaded', () => {
         smoothScroolTo(e, this);
     });
 
-    /*const animatePopUp = showed => {
-        const popup = document.querySelector('.popup-content');
-        if (showed) {
-            let count = 0;
-            const animate = () => {
-                const animeId = setTimeout(animate, 1);
-                if (count < 250) {
-                    popup.style.top = count + 'px';
-                    count += 3;
-                } else {
-                    clearTimeout(animeId);
-                }
-            };
-            animate();
-        } else {
-            let count = 250;
-            const animate = () => {
-                const animeId = setTimeout(animate, 1);
-                if (count >= 0) {
-                    popup.style.top = count + 'px';
-                    count -= 3;
-                } else {
-                    clearTimeout(animeId);
-                    document.querySelector('.popup').style.display = 'none';
-                }
-            };
-            animate();
-        }
-    };*/
-
     //попап окно
     const togglePopUp = () => {
         const popup = document.querySelector('.popup'),
@@ -407,7 +377,8 @@ window.addEventListener('DOMContentLoaded', () => {
             message.value = message.value.replace(/[^а-яё -]/ig, '');
         });
         const blur = item => {
-            item.value = item.value.trim().replace(/^\-/, '').replace(/ {1,}/g, " ").replace(/\-{1,}/g, "-").replace(/\+{1,}/g, "+");
+            item.value = item.value.trim().replace(/^\\-/, '')
+                .replace(/ {1,}/g, " ").replace(/\\-{1,}/g, "-").replace(/\+{1,}/g, "+");
         };
         phone.addEventListener('focusout', () => {
             blur(phone);
@@ -467,7 +438,8 @@ window.addEventListener('DOMContentLoaded', () => {
             message.value = message.value.replace(/[^а-яё -]/ig, '');
         });
         const blur = item => {
-            item.value = item.value.trim().replace(/^\-/, '').replace(/ {1,}/g, " ").replace(/\-{1,}/g, "-").replace(/\+{1,}/g, "+");
+            item.value = item.value.trim().replace(/^\\-/, '')
+                .replace(/ {1,}/g, " ").replace(/\\-{1,}/g, "-").replace(/\+{1,}/g, "+");
         };
         phone.addEventListener('focusout', () => {
             blur(phone);
@@ -509,7 +481,6 @@ window.addEventListener('DOMContentLoaded', () => {
             successMessage = 'Спасибо! Мы скоро с вами свяжимся!';
 
         const forms = [...document.querySelectorAll('form')];
-        console.log(forms);
 
         const statusMessage = document.createElement('div');
         statusMessage.style.cssText = 'font-size: 2rem; color: #FFF !important;';
@@ -524,7 +495,8 @@ window.addEventListener('DOMContentLoaded', () => {
                     body[val[0]] = val[1];
                 }
                 postData(body, elem)
-                    .then(() => {
+                    .then((response) => {
+                        if (response.status !== 200) throw new Error(`Status network not 200`);
                         statusMessage.textContent = successMessage;
                         setTimeout(() => {
                             statusMessage.remove();
@@ -544,23 +516,16 @@ window.addEventListener('DOMContentLoaded', () => {
         });
 
     };
-    const postData = (body, form) => new Promise((resolve, reject) => {
-        const request = new XMLHttpRequest();
-        request.addEventListener('readystatechange', () => {
-            if (request.readyState !== 4) {
-                return;
-            }
-            if (request.status === 200) {
-                resolve();
-            } else {
-                reject(request.status);
-            }
-        });
-        request.open('POST', './server.php');
-        request.setRequestHeader('Content-Type', 'application/json');
-        request.send(JSON.stringify(body));
-        form.reset();
-    });
+    const postData = body => {
+        return fetch('./server.php', {
+            method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(body)
+        })
+
+    }
     sendForm();
 });
 
@@ -592,7 +557,7 @@ const valid2 = new Validator({
         name: /[A-Za-zА-Яа-яЁё]{2,}/,
         message: /[а-яё -]/ig,
         email: /^\w+@+\w+\.\w{2,}$/,
-        phone: /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/,
+        phone: /^((8|\+7)[\\- ]?)?(\(?\d{3}\)?[\\- ]?)?[\d\- ]{7,10}$/,
     },
     method: {
         'form2-name': [
