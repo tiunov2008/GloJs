@@ -102,3 +102,78 @@ class Validator {
 
     }
 }
+
+const valid1 = new Validator({
+    selector: '#form1',
+    pattern: {
+        name: /[A-Za-zА-Яа-яЁё]{2,}/,
+        email: /^\w+@+\w+\.\w{2,}$/,
+        phone: /^((8|\+7)[- ]?)?(\(?\d{3}\)?[- ]?)?[\d\- ]{7,10}$/,
+    },
+    method: {
+        'form1-name': [
+            ['notEmpty'],
+            ['pattern', 'name'],
+        ],
+        'form1-email': [
+            ['notEmpty'],
+            ['pattern', 'email'],
+        ],
+        'form1-phone': [
+            ['notEmpty'],
+            ['pattern', 'phone'],
+        ],
+    },
+});
+const valid2 = new Validator({
+    selector: '#form2',
+    pattern: {
+        name: /[A-Za-zА-Яа-яЁё]{2,}/,
+        message: /[а-яё -]/ig,
+        email: /^\w+@+\w+\.\w{2,}$/,
+        phone: /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/,
+    },
+    method: {
+        'form2-name': [
+            ['notEmpty'],
+            ['pattern', 'name'],
+        ],
+        'form2-message': [
+            ['notEmpty'],
+            ['pattern', 'message'],
+        ],
+        'form2-email': [
+            ['notEmpty'],
+            ['pattern', 'email'],
+        ],
+        'form2-phone': [
+            ['notEmpty'],
+            ['pattern', 'phone'],
+        ],
+    },
+});
+const valid3 = new Validator({
+    selector: '#form3',
+    pattern: {
+        name: /[A-Za-zА-Яа-яЁё]{2,}/,
+        email: /^\w+@+\w+\.\w{2,}$/,
+        phone: /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/,
+    },
+    method: {
+        'form3-name': [
+            ['notEmpty'],
+            ['pattern', 'name'],
+        ],
+        'form3-email': [
+            ['notEmpty'],
+            ['pattern', 'email'],
+        ],
+        'form3-phone': [
+            ['notEmpty'],
+            ['pattern', 'phone'],
+        ],
+    },
+});
+valid1.init();
+valid2.init();
+valid3.init();
