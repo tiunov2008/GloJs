@@ -1,5 +1,4 @@
 'use strict';
-
 import countTimer from './modules/countTimer';
 import toggleMenu from './modules/toggleMenu';
 import togglePopUp from './modules/togglePopUp';
@@ -10,10 +9,10 @@ import blurForms from './modules/blurForms';
 import questions from './modules/questions';
 import sendForm from './modules/sendForm';
 import ourTeam from './modules/ourTeam';
-import Validator from './modules/validator';
 import smoothScroolTo from './modules/smoothScroolTo';
 
 const date = new Date();
+
 countTimer(`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate() + 1}`);
 toggleMenu();
 document.querySelector('a').addEventListener('click', function(e) {

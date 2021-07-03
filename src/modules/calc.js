@@ -26,35 +26,43 @@ const calc = (price = 100) => {
         if (typeValue && squareValue) {
             total = Math.ceil(price * typeValue * squareValue * countValue * dayValue);
         }
-        let increase;
+        const init = value => {
+            totalValue.textContent = value;
+        };
+        let step = 0;
         if (lastTotal < total) {
-            increase = true;
+            step = (total - lastTotal) / 100;
         } else if (lastTotal > total) {
-            increase = false;
+            step = (lastTotal - total) / 100;
         }
-        if (increase) {
-            const id = setInterval(() => {
-                if (count <= total) {
-                    totalValue.textContent = count;
-                    count += 25;
-                } else {
-                    totalValue.textContent = total;
-                    count = total;
-                    clearInterval(id);
-                }
-            }, 1);
-        } else {
-            const id2 = setInterval(() => {
-                if (count >= total) {
-                    totalValue.textContent = count;
-                    count -= 25;
-                } else {
-                    totalValue.textContent = total;
-                    count = total;
-                    clearInterval(id2);
-                }
-            }, 1);
-        }
+        let time = 0;
+        const id = setInterval(() => {
+            time++;
+            if (count < total) {
+                count += step;
+                calcType.disabled = 'true';
+                calcSquare.disabled = 'true';
+                calcDay.disabled = 'true';
+                calcCount.disabled = 'true';
+                init(count);
+            } else if (count > total) {
+                count -= step;
+                calcType.disabled = 'true';
+                calcSquare.disabled = 'true';
+                calcDay.disabled = 'true';
+                calcCount.disabled = 'true';
+                init(count);
+            }
+            if (time === 100) {
+                clearInterval(id);
+                init(total);
+                calcType.removeAttribute('disabled');
+                calcSquare.removeAttribute('disabled');
+                calcDay.removeAttribute('disabled');
+                calcCount.removeAttribute('disabled');
+            }
+        }, 10);
+
         lastTotal = total;
         if (calcType.options[calcType.selectedIndex].value === '' && calcSquare.value === '' &&
         calcDay.value === '' && calcCount.value === '') {
