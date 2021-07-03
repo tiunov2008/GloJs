@@ -31,9 +31,9 @@ const calc = (price = 100) => {
         };
         let step = 0;
         if (lastTotal < total) {
-            step = (total - lastTotal) / 100;
+            step = Math.ceil((total - lastTotal) / 100);
         } else if (lastTotal > total) {
-            step = (lastTotal - total) / 100;
+            step = Math.ceil((lastTotal - total) / 100);
         }
         let time = 0;
         const id = setInterval(() => {
@@ -44,14 +44,14 @@ const calc = (price = 100) => {
                 calcSquare.disabled = 'true';
                 calcDay.disabled = 'true';
                 calcCount.disabled = 'true';
-                init(count);
+                init(Math.ceil(count));
             } else if (count > total) {
                 count -= step;
                 calcType.disabled = 'true';
                 calcSquare.disabled = 'true';
                 calcDay.disabled = 'true';
                 calcCount.disabled = 'true';
-                init(count);
+                init(Math.ceil(count));
             }
             if (time === 100) {
                 clearInterval(id);
