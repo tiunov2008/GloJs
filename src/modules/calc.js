@@ -40,14 +40,12 @@ const calc = (price = 100) => {
             time++;
             if (count < total) {
                 count += step;
-                calcType.disabled = 'true';
                 calcSquare.disabled = 'true';
                 calcDay.disabled = 'true';
                 calcCount.disabled = 'true';
                 init(Math.ceil(count));
             } else if (count > total) {
                 count -= step;
-                calcType.disabled = 'true';
                 calcSquare.disabled = 'true';
                 calcDay.disabled = 'true';
                 calcCount.disabled = 'true';
@@ -64,6 +62,12 @@ const calc = (price = 100) => {
         }, 10);
 
         lastTotal = total;
+        calcType.addEventListener('change', () => {
+            calcSquare.value = '';
+            calcDay.value = '';
+            calcCount.value = '';
+            totalValue.value = 0;
+        });
         if (calcType.options[calcType.selectedIndex].value === '' && calcSquare.value === '' &&
         calcDay.value === '' && calcCount.value === '') {
             total = 0,
@@ -80,6 +84,5 @@ const calc = (price = 100) => {
             countSum();
         }
     });
-
 };
 export default calc;

@@ -15,11 +15,11 @@ const toggleMenu = () => {
     const btnMenu = document.querySelector('.menu'),
         menu = document.querySelector('menu'),
         menuItems = menu.querySelectorAll('ul>li>a');
-
     document.body.addEventListener('click', e => {
         const target = e.target;
 
         if (target.classList.contains('close-btn')) {
+            e.preventDefault();
             menu.classList.remove('active-menu');
         } else {
             const targetMenu = target.closest('.menu');
