@@ -10,6 +10,7 @@ import questions from './modules/questions';
 import sendForm from './modules/sendForm';
 import ourTeam from './modules/ourTeam';
 import smoothScroolTo from './modules/smoothScroolTo';
+import SliderСarousel from './modules/sliderСarousel';
 
 const date = new Date();
 
@@ -26,3 +27,23 @@ blurForms();
 questions();
 ourTeam();
 sendForm();
+const carousel = new SliderСarousel({
+    main: '.companies-wrapper',
+    wrap: '.companies-hor',
+    infinity: true,
+    slidesToShow: 4,
+
+    responsive: [{
+        breakpoint: 1024,
+        slideToShow: 3,
+    },
+    {
+        breakpoint: 768,
+        slideToShow: 2,
+    },
+    {
+        breakpoint: 576,
+        slideToShow: 1,
+    }]
+});
+carousel.init();
