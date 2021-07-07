@@ -136,7 +136,6 @@ class SliderСarousel {
             if (widthWindow < maxResponse) {
                 for (let i = 0; i < allResponse.length; i++) {
                     if (widthWindow < allResponse[i]) {
-                        console.log(1);
                         this.slidesToShow = this.responsive[i].slideToShow;
                         this.options.widthSlide = Math.floor(100 / this.slidesToShow);
                         this.addStyles();
