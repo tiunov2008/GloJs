@@ -93,36 +93,6 @@ window.addEventListener('DOMContentLoaded', () => {
         smoothScroolTo(e, this);
     });
 
-    /*const animatePopUp = showed => {
-        const popup = document.querySelector('.popup-content');
-        if (showed) {
-            let count = 0;
-            const animate = () => {
-                const animeId = setTimeout(animate, 1);
-                if (count < 250) {
-                    popup.style.top = count + 'px';
-                    count += 3;
-                } else {
-                    clearTimeout(animeId);
-                }
-            };
-            animate();
-        } else {
-            let count = 250;
-            const animate = () => {
-                const animeId = setTimeout(animate, 1);
-                if (count >= 0) {
-                    popup.style.top = count + 'px';
-                    count -= 3;
-                } else {
-                    clearTimeout(animeId);
-                    document.querySelector('.popup').style.display = 'none';
-                }
-            };
-            animate();
-        }
-    };*/
-
     //попап окно
     const togglePopUp = () => {
         const popup = document.querySelector('.popup'),
@@ -507,6 +477,19 @@ window.addEventListener('DOMContentLoaded', () => {
         const errorMessage = 'Что то пошло не так...',
             loadMessage = 'Загрузка...',
             successMessage = 'Спасибо! Мы скоро с вами свяжимся!';
+        const loadMessageElement = document.createElement('div');
+        loadMessageElement.id = 'floatingCirclesG';
+        loadMessageElement.innerHTML = `
+        <div id="">
+            <div class="f_circleG" id="frotateG_01"></div>
+            <div class="f_circleG" id="frotateG_02"></div>
+            <div class="f_circleG" id="frotateG_03"></div>
+            <div class="f_circleG" id="frotateG_04"></div>
+            <div class="f_circleG" id="frotateG_05"></div>
+            <div class="f_circleG" id="frotateG_06"></div>
+            <div class="f_circleG" id="frotateG_07"></div>
+            <div class="f_circleG" id="frotateG_08"></div>
+        `;
 
         const form1 =  document.getElementById('form1');
         const form2 =  document.getElementById('form2');
@@ -520,6 +503,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 event.preventDefault();
                 elem.appendChild(statusMessage);
                 statusMessage.textContent = loadMessage;
+                elem.appendChild(loadMessageElement);
                 const formData = new FormData(elem);
                 const body = {};
                 for (const val of formData.entries()) {
@@ -528,6 +512,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 if (elem !== form3) {
                     postData(body,
                         () => {
+                            loadMessageElement.remove();
                             statusMessage.textContent = successMessage;
                             setTimeout(() => {
                                 statusMessage.remove();
@@ -543,6 +528,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 } else if (elem === form3) {
                     postData(body,
                         () => {
+                            loadMessageElement.remove();
                             statusMessage.textContent = successMessage;
                             setTimeout(() => {
                                 statusMessage.remove();
